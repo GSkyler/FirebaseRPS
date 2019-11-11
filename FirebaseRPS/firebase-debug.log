@@ -1,0 +1,25 @@
+[debug] [2019-11-11T20:30:45.667Z] ----------------------------------------------------------------------
+[debug] [2019-11-11T20:30:45.670Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\rc211\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-11-11T20:30:45.670Z] CLI Version:   7.7.0
+[debug] [2019-11-11T20:30:45.670Z] Platform:      win32
+[debug] [2019-11-11T20:30:45.670Z] Node Version:  v12.13.0
+[debug] [2019-11-11T20:30:45.672Z] Time:          Mon Nov 11 2019 14:30:45 GMT-0600 (Central Standard Time)
+[debug] [2019-11-11T20:30:45.672Z] ----------------------------------------------------------------------
+[debug] [2019-11-11T20:30:45.672Z] 
+[debug] [2019-11-11T20:30:45.678Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-11T20:30:45.678Z] > authorizing via signed-in user
+[debug] [2019-11-11T20:30:45.679Z] [iam] checking project fir-rps-c06d9 for permissions ["firebase.projects.get"]
+[debug] [2019-11-11T20:30:45.680Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-rps-c06d9:testIamPermissions  
+
+[debug] [2019-11-11T20:30:45.871Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-11T20:30:45.872Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/fir-rps-c06d9  
+ 
+[debug] [2019-11-11T20:30:46.198Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\rc211\Desktop\FirebaseRPS'...
+[info] 
+[debug] [2019-11-11T20:30:46.205Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/fir-rps-c06d9/webApps/-/config  
+ 
+[debug] [2019-11-11T20:30:46.634Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000

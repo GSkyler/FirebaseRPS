@@ -34,19 +34,71 @@ function playScissors(){
 }
 
 function determineWinner(playerChoice, cpuChoice){
-    const recordRef = firebase.firestore().collection("playerRecord").doc("record");
-    const newPlayed = recordRef.data().played + 1;
+    const db = firebase.firestore();
+    // const recordRef = db.collection('playerRecord');
+    // const doc = recordRef.get();
+    // const  = doc.data();
+    const recordRef = db.collection("playerRecord").doc("record");
+    recordRef.get().then(function(doc){
+        if(doc.exists){
+            if(playerChoice === cpuChoice){
+                recordRef.update({
+                    played: doc.data().played + 1,
+                    ties: doc.data().ties + 1
+                })
+                    .then(function(){
+                        console.log("Document successfully updated");
+                    })
+                    .catch(function (error) {
+                        console.error("Error updating document: ", error);
+                    })
+            }
+            else if(playerChoice-cpuChoice === 1 || playerChoice === 0 && cpuChoice === 2){
+                recordRef.update({
+                    played: doc.data().played + 1,
+                    wins: doc.data().wins + 1
+                })
+                    .then(function(){
+                        console.log("Document successfully updated");
+                    })
+                    .catch(function (error) {
+                        console.error("Error updating document: ", error);
+                    })
+            }
+            else{
+                recordRef.update({
+                    played: doc.data().played + 1,
+                    losses: doc.data().losses + 1
+                })
+                    .then(function(){
+                        console.log("Document successfully updated");
+                    })
+                    .catch(function (error) {
+                        console.error("Error updating document: ", error);
+                    })
+            }
+            document.getElementById("recordHeader").innerHTML = `${doc.data().wins} - ${doc.data().ties} - ${doc.data.losses}`;
+        }
+        else{
+            console.log("No document found");
+        }
+    }).catch(function (error) {
+        console.log("Error gettting document: ", error);
+    });
 
-    if(playerChoice === cpuChoice){
-        recordRef.update({
-            played: newPlayed,
-            ties: recordRef.data().ties + 1
-        })
-            .then(function(){
-                console.log("Document successfully updated");
-            })
-            .catch(function (error) {
-                console.error("Error updating document: ", error);
-            })
-    }
+}
+
+function updateRecord(){
+    const db = firebase.firestore();
+    const recrdRef = db.collection("playerRecord").doc("record")
+    recordRef.get().then(function(doc){
+        if(doc.exists){
+            document.getElementById("recordHeader").innerHTML = `${doc.data().wins} - ${doc.data().ties} - ${doc.data.losses}`;
+        }
+        else{
+            console.log("No document found");
+        }
+    }).catch(function (error) {
+        console.log("Error gettting document: ", error);
+    });
 }

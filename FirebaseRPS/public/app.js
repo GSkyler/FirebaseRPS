@@ -11,9 +11,16 @@ document.addEventListener("DOMContentLoaded", event => {
                 console.log("got record");
                 data = doc.data();
                 // document.write(`${data.wins} - ${data.ties} - ${data.losses} <br>`);
-                document.getElementById("recordHeader").innerHTML = `${data.wins} - ${data.ties} - ${data.losses}`;
+                document.getElementById("recordHeader").innerHTML = `Record: ${data.wins} - ${data.ties} - ${data.losses}`;
             })
-        })
+        });
+
+    const pRecordRef = recordRef.doc("record");
+    pRecordRef
+        .onSnapshot(function (doc) {
+            var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+            document.getElementById("recordHeader").innerHTML = `Record: ${doc.data().wins} - ${doc.data().ties} - ${doc.data().losses}`;
+        });
 
     // console.log(app);
 });
@@ -35,9 +42,6 @@ function playScissors(){
 
 function determineWinner(playerChoice, cpuChoice){
     const db = firebase.firestore();
-    // const recordRef = db.collection('playerRecord');
-    // const doc = recordRef.get();
-    // const  = doc.data();
     const recordRef = db.collection("playerRecord").doc("record");
     recordRef.get().then(function(doc){
         if(doc.exists){
@@ -51,7 +55,8 @@ function determineWinner(playerChoice, cpuChoice){
                     })
                     .catch(function (error) {
                         console.error("Error updating document: ", error);
-                    })
+                    });
+                document.getElementById("playResult").innerHTML = "You Tied";
             }
             else if(playerChoice-cpuChoice === 1 || playerChoice === 0 && cpuChoice === 2){
                 recordRef.update({
@@ -63,7 +68,8 @@ function determineWinner(playerChoice, cpuChoice){
                     })
                     .catch(function (error) {
                         console.error("Error updating document: ", error);
-                    })
+                    });
+                document.getElementById("playResult").innerHTML = "You Win";
             }
             else{
                 recordRef.update({
@@ -75,9 +81,9 @@ function determineWinner(playerChoice, cpuChoice){
                     })
                     .catch(function (error) {
                         console.error("Error updating document: ", error);
-                    })
+                    });
+                document.getElementById("playResult").innerHTML = "You Lose";
             }
-            document.getElementById("recordHeader").innerHTML = `${doc.data().wins} - ${doc.data().ties} - ${doc.data.losses}`;
         }
         else{
             console.log("No document found");
@@ -88,17 +94,17 @@ function determineWinner(playerChoice, cpuChoice){
 
 }
 
-function updateRecord(){
-    const db = firebase.firestore();
-    const recrdRef = db.collection("playerRecord").doc("record")
-    recordRef.get().then(function(doc){
-        if(doc.exists){
-            document.getElementById("recordHeader").innerHTML = `${doc.data().wins} - ${doc.data().ties} - ${doc.data.losses}`;
-        }
-        else{
-            console.log("No document found");
-        }
-    }).catch(function (error) {
-        console.log("Error gettting document: ", error);
-    });
-}
+// function updateRecord(){
+//     const db = firebase.firestore();
+//     const recrdRef = db.collection("playerRecord").doc("record");
+//     recordRef.get().then(function(doc){
+//         if(doc.exists){
+//             document.getElementById("recordHeader").innerHTML = `${doc.data().wins} - ${doc.data().ties} - ${doc.data().losses}`;
+//         }
+//         else{
+//             console.log("No document found");
+//         }
+//     }).catch(function (error) {
+//         console.log("Error gettting document: ", error);
+//     });
+// }
